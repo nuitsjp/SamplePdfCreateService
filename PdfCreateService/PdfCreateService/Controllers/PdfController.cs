@@ -10,13 +10,15 @@ using System.Web.Http.Results;
 
 namespace PdfCreateService.Controllers
 {
-    public class ValuesController : ApiController
+    public class PdfController : ApiController
     {
-        // GET api/values/5
+        // GET api/pdf/5
         public IHttpActionResult Get(int id)
         {
             // 実際にはここでIDに該当するPDFを作成する
             var pdf = Properties.Resources.Invoice;
+
+            // 出来上がったPDFのバイト列をレスポンスとして返却する
             return ResponseMessage(new HttpResponseMessage
             {
                 Content = new StreamContent(new MemoryStream(pdf))
@@ -26,7 +28,7 @@ namespace PdfCreateService.Controllers
                         ContentType = new MediaTypeHeaderValue("application/octet-stream"),
                         ContentDisposition = new ContentDispositionHeaderValue("attatchment")
                         {
-                            FileName = "請求書"
+                            FileName = "請求書.pdf"
                         }
                     },
                 }
